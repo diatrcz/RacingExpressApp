@@ -1,0 +1,65 @@
+Teams & Cars
+
+- index.html - teams táblázat (edit, delete)
+- team-details.html - new team
+- cars.html - táblázat (edit, delete) new car
+- add-car.html - save + cancel
+- edit-car.html - save + cancel
+- add-team.html - save + cancel
+- add-car.html - save + cancel
+
+Routing
+
+middleware/team/
+    getTeamsMw.js
+    getTeamMw.js
+    saveTeamMw.js
+    delTeamMw.js
+
+middleware/car/
+    getCarsMw.js
+    getCarMw.js
+    saveCarMw.js
+    delCarMw.js
+
+middleware/common/
+    renderMw.js
+
+GET  /team -index.html
+    getTeamsMw
+    renderMw(index.html)
+
+GET  /team/:teamid         -team-details
+    getTeamMw
+    renderMw(team-details.html)
+
+GET, POST  /team/edit/:teamid    - edit-team.html
+    getTeamMw
+    saveTeamMw
+    renderMw(edit-team.html) 
+
+GET, POST  /team/add             - add-team.html
+   saveTeamMw - ha nincs leküldött adat -> nextet hív, ha van leküldött adat és hibára fut, akkor letesz változóba és nextet hív, amúgy átirányít /team endpointra
+   renderMw(add-team.html) 
+
+GET  /team/del/:teamid
+    getTeamMw
+    getCarsMw
+    delTeamMw
+
+GET  /car                        - cars.html
+    getCarsMw
+    renderMw(cars.html)
+
+GET, POST  /car/edit/:carid      - edit-car.html
+    getCarMw
+    saveCarMw
+    renderMw(edit-car.html) 
+
+GET, POST  /car/add              - add-car.html
+    saveCarMw - ha nincs leküldött adat -> nextet hív, ha van leküldött adat és hibára fut, akkor letesz változóba és nextet hív, amúgy átirányít /team endpointra
+    renderMw(add-car.html) 
+
+GET  /car/del/:carid
+    getCarMw
+    delCarMw
