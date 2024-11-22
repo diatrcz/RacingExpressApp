@@ -1,16 +1,18 @@
 <%- include('header') %>
     <div class="container mx-auto mt-10 p-6">
         <h1 class="text-4xl font-bold mb-6">Add New Car</h1>
-        <form class="bg-white shadow-lg rounded-lg p-6">
+        <form class="bg-white shadow-lg rounded-lg p-6" method="POST" action="/car/add">
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="number">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="numberOf">
               Number
             </label>
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="number"
+              id="numberOf"
+              name="numberOf"
               type="number"
               placeholder="Enter car number"
+              value="<%= (typeof car !== 'undefined' && car.numberOf) ? car.numberOf : '' %>"
               required
             />
           </div>
@@ -21,8 +23,10 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="chassis"
+              name="chassis"
               type="text"
               placeholder="Enter chassis name"
+              value="<%= (typeof car !== 'undefined' && car.chassis) ? car.chassis : '' %>"
               required
             />
           </div>
@@ -33,34 +37,50 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="powerUnit"
+              name="powerUnit"
               type="text"
               placeholder="Enter power unit name"
+              value="<%= (typeof car !== 'undefined' && car.powerUnit) ? car.powerUnit : '' %>"
               required
             />
           </div>
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="team">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="_team">
               Team
             </label>
             <select
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="team"
+              id="_team"
+              name="_team"
               required
             >
               <option value="">Select a team</option>
-              <option value="red-bull">Red Bull Racing</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="ferrari">Ferrari</option>
+              <% if (typeof teams !== 'undefined') { %>
+                <% teams.forEach(function(team) { %>
+                  <option 
+                    value="<%= team._id %>"
+                    <%= (typeof car !== 'undefined' && car._team && car._team.equals(team._id)) ? 'selected' : '' %>
+                  >
+                    <%= team.fullName %>
+                  </option>
+                <% }); %>
+              <% } %>
             </select>
           </div>
           <div class="flex items-center justify-between">
             <button
-              class="bg-transparent border border-purple-500 text-purple-500 hover:bg-purple-700 hover-border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+              class="bg-transparent border border-purple-500 text-purple-500 hover:bg-purple-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
               type="submit"
             >
               Add Car
             </button>
+            <a 
+              href="/car"
+              class="bg-transparent border border-gray-500 text-gray-500 hover:bg-gray-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+            >
+              Cancel
+            </a>
           </div>
         </form>
-      </div>      
+    </div>      
 <%- include('footer') %>

@@ -10,30 +10,35 @@ const getCarMw = require('../middleware/car/getCarMw');
 const saveCarMw = require('../middleware/car/saveCarMw');
 const delCarMw = require('../middleware/car/delCarMw');
 
-module.exports = function(app) {
-    const objRepo = {};
-
-    app.use('/team',
+module.exports = function(app, objRepo) {  // Accept objRepo as parameter
+    app.use('/team/add',
         getTeamsMw(objRepo),
-        renderMw(objRepo, 'index')
+        saveTeamMw(objRepo),
+        renderMw(objRepo, 'add-team')
     );
-    app.get('/team/:teamid',
-        getTeamMw(objRepo),
-        renderMw(objRepo, 'team-detals')
-    );
+
     app.use('/team/edit/:teamid',
         getTeamMw(objRepo),
         saveTeamMw(objRepo),
         renderMw(objRepo, 'edit-team')
     );
-    app.use('/team/add',
-        saveTeamMw(objRepo),
-        renderMw(objRepo, 'add-team')
-    );
+
     app.get('/team/del/:teamid',
         getTeamMw(objRepo),
         getCarsMw(objRepo),
         delTeamMw(objRepo)
+    );
+
+    app.get('/team/:teamid',
+        getTeamMw(objRepo),
+        getCarsMw(objRepo), // Add this to show team's cars in detail view
+        renderMw(objRepo, 'team-details')  // Fix typo in template name
+    );
+
+    // General team list route should be last
+    app.get('/team',
+        getTeamsMw(objRepo),
+        renderMw(objRepo, 'index')
     );
 
     app.get('/car',
@@ -46,6 +51,7 @@ module.exports = function(app) {
         renderMw(objRepo, 'edit-car')
     );
     app.use('/car/add',
+        getTeamsMw(objRepo),  
         saveCarMw(objRepo),
         renderMw(objRepo, 'add-car')
     );

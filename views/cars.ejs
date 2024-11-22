@@ -2,10 +2,10 @@
     <div class="container mx-auto mt-10 p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-4xl font-bold text-gray-800">Cars</h1>
-            <a
-                href="/car/add"
-                class="px-4 py-2 bg-transparent text-green-600 border border-green-500 rounded-lg font-semibold hover:bg-green-500 hover:text-white transition duration-300">
-                Add
+            <a 
+              href="/car/add"
+              class="px-4 py-2 bg-transparent text-green-600 border border-green-500 rounded-lg font-semibold hover:bg-green-500 hover:text-white transition duration-300">
+              Add
             </a>
         </div>
         <table class="w-full bg-white shadow-lg rounded-lg overflow-hidden">
@@ -19,46 +19,63 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="border-b hover:bg-gray-100 transition duration-200">
-              <td class="p-4">1</td>
-              <td class="p-4">RB19</td>
-              <td class="p-4">Honda RBPT</td>
-              <td class="p-4">
-                <a href="/team/:teamid" class="text-blue-500 hover:underline">Red Bull Racing</a>
-              </td>
-              <td class="p-4 flex space-x-2">
-                <a href="/car/edit/:carid">
-                  <button class="text-gray-500 hover:text-gray-700 transition duration-200 mr-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24px"
-                      width="24px"
-                      viewBox="0 -960 960 960"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"
-                      />
-                    </svg>
-                  </button>
-                </a>
-                <button class="text-gray-500 hover:text-gray-700 transition duration-200">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    width="24px"
-                    viewBox="0 -960 960 960"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"
-                    />
-                  </svg>
-                </button>
-              </td>
-            </tr>
+            <% if (typeof cars !== 'undefined' && cars.length > 0) { %>
+              <% cars.forEach(function(car) { %>
+                <tr class="border-b hover:bg-gray-100 transition duration-200">
+                  <td class="p-4"><%= car.numberOf %></td>
+                  <td class="p-4"><%= car.chassis %></td>
+                  <td class="p-4"><%= car.powerUnit %></td>
+                  <td class="p-4">
+                    <% if (car._team) { %>
+                      <a href="/team/<%= car._team._id %>" class="text-blue-500 hover:underline">
+                        <%= car._team.fullName %>
+                      </a>
+                    <% } else { %>
+                      <span class="text-gray-400">No team assigned</span>
+                    <% } %>
+                  </td>
+                  <td class="p-4 flex space-x-2">
+                    <a href="/car/edit/<%= car._id %>">
+                      <button class="text-gray-500 hover:text-gray-700 transition duration-200 mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          width="24px"
+                          viewBox="0 -960 960 960"
+                          fill="currentColor"
+                        >
+                          <path
+                            d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"
+                          />
+                        </svg>
+                      </button>
+                    </a>
+                    <a href="/car/del/<%= car._id %>" 
+                       onclick="return confirm('Are you sure you want to delete this car?')"
+                       class="text-gray-500 hover:text-gray-700 transition duration-200">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        width="24px"
+                        viewBox="0 -960 960 960"
+                        fill="currentColor"
+                      >
+                        <path
+                          d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"
+                        />
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
+              <% }); %>
+            <% } else { %>
+              <tr class="border-b">
+                <td colspan="5" class="p-4 text-center text-gray-500">
+                  No cars found. <a href="/car/add" class="text-blue-500 hover:underline">Add a car</a>
+                </td>
+              </tr>
+            <% } %>
           </tbody>
         </table>
       </div>      
 <%- include('footer') %>
-

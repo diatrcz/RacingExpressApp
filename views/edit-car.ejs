@@ -2,14 +2,16 @@
     
     <div class="container mx-auto mt-10 p-6">
         <h1 class="text-4xl font-bold text-gray-800 mb-6">Edit Car</h1>
-        <form class="bg-white shadow-lg rounded-lg p-6">
+        <form class="bg-white shadow-lg rounded-lg p-6" method="POST" action="/car/edit/<%= car._id %>">
           <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="number">Number</label>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="numberOf">Number</label>
             <input
               class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="number"
+              id="numberOf"
+              name="numberOf"
               type="number"
-              value="33"
+              value="<%= car.numberOf %>"
+              required
             />
           </div>
           <div class="mb-6">
@@ -17,8 +19,10 @@
             <input
               class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
               id="chassis"
+              name="chassis"
               type="text"
-              value="RB19"
+              value="<%= car.chassis %>"
+              required
             />
           </div>
           <div class="mb-6">
@@ -26,32 +30,47 @@
             <input
               class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
               id="powerUnit"
+              name="powerUnit"
               type="text"
-              value="Honda RBPT"
+              value="<%= car.powerUnit %>"
+              required
             />
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="team">Team</label>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="_team">Team</label>
             <select
               class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="team"
+              id="_team"
+              name="_team"
+              required
             >
               <option value="" disabled>Select a team</option>
-              <option value="red-bull" selected>Red Bull Racing</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="ferrari">Ferrari</option>
-              <!-- Add more team options as needed -->
+              <% if (typeof teams !== 'undefined' && teams.length > 0) { %>
+                <% teams.forEach(function(team) { %>
+                  <option 
+                    value="<%= team._id %>"
+                    <%= (car._team && car._team._id.toString() === team._id.toString()) ? 'selected' : '' %>
+                  >
+                    <%= team.fullName %>
+                  </option>
+                <% }); %>
+              <% } %>
             </select>
           </div>
           <div class="flex items-center justify-between">
             <button
-              class="bg-transparent border border-violet-500 text-violet-500 hover:bg-violet-700 hover-border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
-              type="button"
+              class="bg-transparent border border-violet-500 text-violet-500 hover:bg-violet-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+              type="submit"
             >
               Save
             </button>
+            <a 
+              href="/car"
+              class="bg-transparent border border-gray-500 text-gray-500 hover:bg-gray-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+            >
+              Cancel
+            </a>
           </div>
         </form>
       </div>      
 <%- include('footer') %>
-

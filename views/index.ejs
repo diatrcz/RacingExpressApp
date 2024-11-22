@@ -14,31 +14,49 @@
                 <th class="p-4 text-left">Name</th>
                 <th class="p-4 text-left">First Team Entry</th>
                 <th class="p-4 text-left">Base</th>
-                <th class="p-4 text-left">Points</th>
+                <th class="p-4 text-left">Championships</th>
                 <th class="p-4 text-center">Actions</th>
               </tr>
             </thead>
             <tbody class="text-gray-600 text-sm">
-              <tr class="border-b border-gray-200 hover:bg-gray-100">
-                <td class="p-4">
-                  <a href="/team/:teamid" class="text-blue-600 hover:underline">
-                    Red Bull Racing
-                  </a>
-                </td>
-                <td class="p-4">2005</td>
-                <td class="p-4">Milton Keynes, UK</td>
-                <td class="p-4">123</td>
-                <td class="p-4 text-center">
-                  <button class="p-2 bg-transparent hover:bg-red-100 text-gray-400 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="currentColor" viewBox="0 -960 960 960">
-                      <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                    </svg>
-                  </button>
-                </td>
-              </tr>
+              <% if (typeof teams !== 'undefined' && teams.length > 0) { %>
+                <% teams.forEach(function(team) { %>
+                  <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="p-4">
+                      <a href="/team/<%= team._id %>" class="text-blue-600 hover:underline">
+                        <%= team.fullName %>
+                      </a>
+                    </td>
+                    <td class="p-4"><%= team.firstEntry %></td>
+                    <td class="p-4"><%= team.base %></td>
+                    <td class="p-4"><%= team.championships %></td>
+                    <td class="p-4 text-center flex justify-center space-x-2">
+                      <a href="/team/edit/<%= team._id %>" class="p-2 bg-transparent hover:bg-blue-100 text-gray-400 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960" fill="currentColor">
+                          <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/>
+                        </svg>
+                      </a>
+                      <a 
+                        href="/team/del/<%= team._id %>" 
+                        class="p-2 bg-transparent hover:bg-red-100 text-gray-400 rounded-full"
+                        onclick="return confirm('Are you sure you want to delete this team? This action cannot be undone if the team has no associated cars.')"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="currentColor" viewBox="0 -960 960 960">
+                          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr class="border-b border-gray-200">
+                  <td colspan="5" class="p-4 text-center text-gray-500">
+                    No teams found. <a href="/team/add" class="text-blue-600 hover:underline">Add a team</a>
+                  </td>
+                </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
       </div>      
 <%- include('footer') %>
-

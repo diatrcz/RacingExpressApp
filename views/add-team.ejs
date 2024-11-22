@@ -2,7 +2,7 @@
     
     <div class="container mx-auto mt-10 p-6">
         <h1 class="text-4xl font-bold mb-6">Add New Team</h1>
-        <form class="bg-white shadow-lg rounded-lg p-6">
+        <form class="bg-white shadow-lg rounded-lg p-6" method="POST" action="/team/add">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">
               Full Name
@@ -10,8 +10,10 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="fullName"
+              name="fullName"
               type="text"
               placeholder="Enter team name"
+              value="<%= (typeof team !== 'undefined' && team.fullName) ? team.fullName : '' %>"
               required
             />
           </div>
@@ -22,8 +24,10 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="base"
+              name="base"
               type="text"
               placeholder="Enter team base"
+              value="<%= (typeof team !== 'undefined' && team.base) ? team.base : '' %>"
               required
             />
           </div>
@@ -34,8 +38,10 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="teamChief"
+              name="teamChief"
               type="text"
               placeholder="Enter team chief name"
+              value="<%= (typeof team !== 'undefined' && team.teamChief) ? team.teamChief : '' %>"
               required
             />
           </div>
@@ -46,8 +52,10 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="firstEntry"
+              name="firstEntry"
               type="number"
               placeholder="Enter first entry year"
+              value="<%= (typeof team !== 'undefined' && team.firstEntry) ? team.firstEntry : '' %>"
               required
             />
           </div>
@@ -58,20 +66,24 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="championships"
+              name="championships"
               type="number"
               placeholder="Enter number of championships"
+              value="<%= (typeof team !== 'undefined' && team.championships) ? team.championships : '' %>"
               required
             />
           </div>
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="highestFinish">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="highestfinish">
               Highest Finish
             </label>
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="highestFinish"
+              id="highestfinish"
+              name="highestfinish"
               type="text"
               placeholder="Enter highest finish"
+              value="<%= (typeof team !== 'undefined' && team.highestfinish) ? team.highestfinish : '' %>"
               required
             />
           </div>
@@ -82,8 +94,10 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="polePositions"
+              name="polePositions"
               type="number"
               placeholder="Enter number of pole positions"
+              value="<%= (typeof team !== 'undefined' && team.polePositions) ? team.polePositions : '' %>"
               required
             />
           </div>
@@ -94,18 +108,26 @@
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="fastestLaps"
+              name="fastestLaps"
               type="number"
               placeholder="Enter number of fastest laps"
+              value="<%= (typeof team !== 'undefined' && team.fastestLaps) ? team.fastestLaps : '' %>"
               required
             />
           </div>
           <div class="flex items-center justify-between">
             <button
-              class="bg-transparent border border-purple-500 text-purple-500 hover:bg-purple-700 hover-border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+              class="bg-transparent border border-purple-500 text-purple-500 hover:bg-purple-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
               type="submit"
             >
-              Add Team
+              <%= (typeof team !== 'undefined') ? 'Update Team' : 'Add Team' %>
             </button>
+            <a 
+              href="/team"
+              class="bg-transparent border border-gray-500 text-gray-500 hover:bg-gray-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+            >
+              Cancel
+            </a>
           </div>
         </form>
       </div>      

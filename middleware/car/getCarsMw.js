@@ -5,7 +5,15 @@
 const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
-    return function (req, res, next) {
-        next();
+    const CarModel = requireOption(objectrepository, 'CarModel');
+    
+    return async function (req, res, next) {
+        try {
+            const cars = await CarModel.find().populate('_team');
+            res.locals.cars = cars;
+            return next();
+        } catch (err) {
+            return next(err);
+        }
     };
 };

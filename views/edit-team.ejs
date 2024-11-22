@@ -1,89 +1,110 @@
 <%- include('header') %>
-    
-    <div class="container mx-auto mt-10 p-6">
-        <h1 class="text-4xl font-bold text-gray-800 mb-6">Edit Team</h1> 
-        <form class="bg-white shadow-lg rounded-lg p-6">
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">Full Name</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="fullName"
-              type="text"
-              value="Red Bull Racing"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="base">Base</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="base"
-              type="text"
-              value="Milton Keynes, UK"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="teamChief">Team Chief</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="teamChief"
-              type="text"
-              value="Christian Horner"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="firstEntry">First Team Entry</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="firstEntry"
-              type="number"
-              value="2005"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="championships">World Championships</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="championships"
-              type="number"
-              value="5"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="highestFinish">Highest Finish</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="highestFinish"
-              type="text"
-              value="1st"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="polePositions">Pole Positions</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="polePositions"
-              type="number"
-              value="80"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="fastestLaps">Fastest Laps</label>
-            <input
-              class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-              id="fastestLaps"
-              type="number"
-              value="85"
-            />
-          </div>
-          <div class="flex items-center justify-between">
-            <button
-              class="bg-transparent border border-violet-500 text-violet-500 hover:bg-violet-700 hover-border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
-              type="button"
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
+   
+   <div class="container mx-auto mt-10 p-6">
+       <h1 class="text-4xl font-bold text-gray-800 mb-6">Edit Team</h1> 
+       <form class="bg-white shadow-lg rounded-lg p-6" method="POST" action="/team/edit/<%= team._id %>">
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">Full Name</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="fullName"
+             name="fullName"
+             type="text"
+             value="<%= team.fullName %>"
+             required
+           />
+         </div>
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="base">Base</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="base"
+             name="base"
+             type="text"
+             value="<%= team.base %>"
+             required
+           />
+         </div>
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="teamChief">Team Chief</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="teamChief"
+             name="teamChief"
+             type="text"
+             value="<%= team.teamChief %>"
+             required
+           />
+         </div>
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="firstEntry">First Team Entry</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="firstEntry"
+             name="firstEntry"
+             type="number"
+             value="<%= team.firstEntry %>"
+             required
+           />
+         </div>
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="championships">World Championships</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="championships"
+             name="championships"
+             type="number"
+             value="<%= team.championships %>"
+             required
+           />
+         </div>
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="highestfinish">Highest Finish</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="highestfinish"
+             name="highestfinish"
+             type="text"
+             value="<%= team.highestfinish %>"
+             required
+           />
+         </div>
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="polePositions">Pole Positions</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="polePositions"
+             name="polePositions"
+             type="number"
+             value="<%= team.polePositions %>"
+             required
+           />
+         </div>
+         <div class="mb-6">
+           <label class="block text-gray-700 text-sm font-bold mb-2" for="fastestLaps">Fastest Laps</label>
+           <input
+             class="shadow appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+             id="fastestLaps"
+             name="fastestLaps"
+             type="number"
+             value="<%= team.fastestLaps %>"
+             required
+           />
+         </div>
+         <div class="flex items-center justify-between">
+           <button
+             class="bg-transparent border border-violet-500 text-violet-500 hover:bg-violet-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+             type="submit"
+           >
+             Save
+           </button>
+           <a 
+             href="/team"
+             class="bg-transparent border border-gray-500 text-gray-500 hover:bg-gray-700 hover:border-transparent hover:text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+           >
+             Cancel
+           </a>
+         </div>
+       </form>
+     </div>
 <%- include('footer') %>
-

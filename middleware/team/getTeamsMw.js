@@ -5,7 +5,15 @@
 const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
-    return function (req, res, next) {
-        next();
+    const TeamModel = requireOption(objectrepository, 'TeamModel');
+    
+    return async function (req, res, next) {
+        try {
+            const teams = await TeamModel.find().sort({ fullName: 1 });
+            res.locals.teams = teams;
+            return next();
+        } catch (err) {
+            return next(err);
+        }
     };
 };
