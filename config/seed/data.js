@@ -43,10 +43,10 @@ const teams = [
 
 const createCarsForTeam = (teamId, teamIndex) => {
     const carsData = [
-        [44, 63],  // Mercedes car numbers
-        [1, 11],   // Red Bull car numbers
-        [16, 55],  // Ferrari car numbers
-        [4, 81]    // McLaren car numbers
+        [44, 63],  
+        [1, 11],   
+        [16, 55], 
+        [4, 81]  
     ];
 
     const chassisNames = ["W15", "RB20", "SF-24", "MCL38"];

@@ -10,13 +10,11 @@ module.exports = function (objectrepository) {
     
     return async function (req, res, next) {
         try {
-            // Load the car with its team data
             const car = await CarModel.findById(req.params.carid).populate('_team');
             if (!car) {
                 return next(new Error('Car not found'));
             }
 
-            // Load all teams for the dropdown
             const teams = await TeamModel.find();
             
             res.locals.car = car;
